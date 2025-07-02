@@ -1,20 +1,16 @@
 model_list:
-  - model_name: gemini-pro
+  - model_name: gemini-home
     litellm_params:
       model: gemini/gemini-2.5-pro
-      api_key: os.environ/GEMINI_API_KEY_1
-      provider: gemini
-  - model_name: gemini-pro
-    litellm_params:
-      model: gemini/gemini-2.5-pro
-      api_key: os.environ/GEMINI_API_KEY_2
+      api_key: os.environ/GEMINI_API_KEY_0
       provider: gemini
 
-  - model_name: gemini-flash
+  - model_name: gemini-pro
     litellm_params:
-      model: gemini/gemini-2.5-flash
+      model: gemini/gemini-2.5-pro
       api_key: os.environ/GEMINI_API_KEY_1
       provider: gemini
+
   - model_name: gemini-flash
     litellm_params:
       model: gemini/gemini-2.5-flash
@@ -34,6 +30,7 @@ model_list:
 router_settings:
   fallbacks: [
     {"gemini-pro": ["gemini-flash"]},
+    {"gemini-flash": ["gemini-home"]},
   ]
 
 general_settings:
