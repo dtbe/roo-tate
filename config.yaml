@@ -5,16 +5,10 @@ model_list:
       api_key: os.environ/GEMINI_API_KEY_0
       provider: gemini
 
-  - model_name: gemini-pro
+  - model_name: gemini-embedding
     litellm_params:
-      model: gemini/gemini-2.5-pro
-      api_key: os.environ/GEMINI_API_KEY_1
-      provider: gemini
-
-  - model_name: gemini-flash
-    litellm_params:
-      model: gemini/gemini-2.5-flash
-      api_key: os.environ/GEMINI_API_KEY_2
+      model: gemini/gemini-embedding-exp-03-07
+      api_key: os.environ/GEMINI_API_KEY_0
       provider: gemini
 
   - model_name: deepseek-v3
@@ -27,9 +21,34 @@ model_list:
       model: openrouter/deepseek/deepseek-r1-0528:free
       api_key: os.environ/OPENROUTER_API_KEY_2
 
+  - model_name: gemini-pro
+    litellm_params:
+      model: gemini/gemini-2.5-pro
+      api_key: os.environ/GEMINI_API_KEY_1
+      provider: gemini
+
+  - model_name: gemini-pro
+    litellm_params:
+      model: gemini/gemini-2.5-pro
+      api_key: os.environ/GEMINI_API_KEY_2
+      provider: gemini
+
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GEMINI_API_KEY_1
+      provider: gemini
+
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GEMINI_API_KEY_2
+      provider: gemini
+
+
 router_settings:
   fallbacks: [
-    {"gemini-pro": ["gemini-flash"]},
+    {"gemini-pro":   ["gemini-flash"]},
     {"gemini-flash": ["gemini-home"]},
   ]
 
