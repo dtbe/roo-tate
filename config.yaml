@@ -1,16 +1,4 @@
 model_list:
-  - model_name: gemini-home
-    litellm_params:
-      model: gemini/gemini-2.5-pro
-      api_key: os.environ/GEMINI_API_KEY_0
-      provider: gemini
-
-  - model_name: gemini-embedding
-    litellm_params:
-      model: gemini/gemini-embedding-exp-03-07
-      api_key: os.environ/GEMINI_API_KEY_0
-      provider: gemini
-
   - model_name: deepseek-v3
     litellm_params:
       model: openrouter/deepseek/deepseek-chat-v3-0324:free
@@ -21,29 +9,46 @@ model_list:
       model: openrouter/deepseek/deepseek-r1-0528:free
       api_key: os.environ/OPENROUTER_API_KEY_2
 
-  - model_name: gemini-pro
+  - model_name: o4-mini
     litellm_params:
+      model: openai/o4-mini-2025-04-16
+      api_key: os.environ/OPENAI_API_KEY
+
+  - model_name: openai-embedding
+    litellm_params:
+      model: openai/text-embedding-3-small # 1536 dimensions
+      api_key: os.environ/OPENAI_API_KEY
+
+  - model_name: gemini-embedding
+    litellm_params:
+      model: gemini/text-embedding-004 # 768 dimensions
+      api_key: os.environ/GEMINI_API_KEY_0
+
+  - model_name: gemini-home
+    litellm_params:
+      rpm: 10
       model: gemini/gemini-2.5-pro
-      api_key: os.environ/GEMINI_API_KEY_1
-      provider: gemini
+      api_key: os.environ/GEMINI_API_KEY_0
 
   - model_name: gemini-pro
     litellm_params:
+      rpm: 10
+      model: gemini/gemini-2.5-pro
+      api_key: os.environ/GEMINI_API_KEY_1
+  - model_name: gemini-pro
+    litellm_params:
+      rpm: 10
       model: gemini/gemini-2.5-pro
       api_key: os.environ/GEMINI_API_KEY_2
-      provider: gemini
 
   - model_name: gemini-flash
     litellm_params:
       model: gemini/gemini-2.5-flash
       api_key: os.environ/GEMINI_API_KEY_1
-      provider: gemini
-
   - model_name: gemini-flash
     litellm_params:
       model: gemini/gemini-2.5-flash
       api_key: os.environ/GEMINI_API_KEY_2
-      provider: gemini
 
 
 router_settings:
@@ -54,3 +59,8 @@ router_settings:
 
 general_settings:
   log_level: INFO
+  timeout: 5
+  num_retries: 1
+
+litellm_settings:
+  drop_params: true
