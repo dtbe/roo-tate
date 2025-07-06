@@ -26,23 +26,25 @@ model_list:
 
   - model_name: gemini-home
     litellm_params:
-      rpm: 10
+      tpm: 200000
       model: gemini/gemini-2.5-pro
       api_key: os.environ/GEMINI_API_KEY_0
       reasoning_effort: "high"
 
   - model_name: gemini-pro
     litellm_params:
-      rpm: 10
+      tpm: 200000
       model: gemini/gemini-2.5-pro
       api_key: os.environ/GEMINI_API_KEY_1
       reasoning_effort: "high"
+      cooldown: 10
   - model_name: gemini-pro
     litellm_params:
-      rpm: 10
+      tpm: 200000
       model: gemini/gemini-2.5-pro
       api_key: os.environ/GEMINI_API_KEY_2
       reasoning_effort: "high"
+      cooldown: 10
 
   - model_name: gemini-flash
     litellm_params:
@@ -59,11 +61,11 @@ router_settings:
     {"gemini-pro":   ["gemini-flash"]},
     {"gemini-flash": ["gemini-home"]},
   ]
+  timeout: 10
 
 general_settings:
   log_level: INFO
-  timeout: 5
-  num_retries: 1
+  num_retries: 0
 
 litellm_settings:
   drop_params: true
