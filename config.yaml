@@ -22,50 +22,60 @@ model_list:
   - model_name: gemini-embedding
     litellm_params:
       model: gemini/text-embedding-004 # 768 dimensions
-      api_key: os.environ/GEMINI_API_KEY_0
+      api_key: os.environ/GEMINI_API_KEY_1
+
+  - model_name: gemini-embedding-exp
+    litellm_params:
+      model: gemini/gemini-embedding-exp-03-07 # 3072 dimensions
+      api_key: os.environ/GEMINI_API_KEY_2
 
   - model_name: gemini-home
     litellm_params:
-      tpm: 200000
-      model: gemini/gemini-2.5-pro
       api_key: os.environ/GEMINI_API_KEY_0
-      reasoning_effort: "high"
-
-  - model_name: gemini-pro
-    litellm_params:
-      tpm: 200000
       model: gemini/gemini-2.5-pro
-      api_key: os.environ/GEMINI_API_KEY_1
-      reasoning_effort: "high"
-      cooldown: 10
-  - model_name: gemini-pro
-    litellm_params:
-      tpm: 200000
-      model: gemini/gemini-2.5-pro
-      api_key: os.environ/GEMINI_API_KEY_2
-      reasoning_effort: "high"
-      cooldown: 10
+      stream: false
 
   - model_name: gemini-flash
     litellm_params:
       model: gemini/gemini-2.5-flash
       api_key: os.environ/GEMINI_API_KEY_1
+      cooldown: 5
+      tpm: 200000
   - model_name: gemini-flash
     litellm_params:
       model: gemini/gemini-2.5-flash
       api_key: os.environ/GEMINI_API_KEY_2
+      cooldown: 5
+      tpm: 200000
 
+  - model_name: gemini-pro
+    litellm_params:
+      api_key: os.environ/GEMINI_API_KEY_1
+      model: gemini/gemini-2.5-pro
+      reasoning_effort: "high"
+      cooldown: 5
+      tpm: 200000
+      stream: false
+  - model_name: gemini-pro
+    litellm_params:
+      api_key: os.environ/GEMINI_API_KEY_2
+      model: gemini/gemini-2.5-pro
+      reasoning_effort: "high"
+      cooldown: 5
+      tpm: 200000
+      stream: false
 
 router_settings:
   fallbacks: [
-    {"gemini-pro":   ["gemini-flash"]},
-    {"gemini-flash": ["gemini-home"]},
+    {"gemini-pro": ["gemini-home", "gemini-flash"]},
+    {"gemini-home": ["gemini-flash"]}
   ]
-  timeout: 10
+  timeout: 5
 
 general_settings:
   log_level: INFO
-  num_retries: 0
+  num_retries: 1
 
 litellm_settings:
   drop_params: true
+  stream: false
