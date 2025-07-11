@@ -29,52 +29,42 @@ model_list:
       model: gemini/gemini-embedding-exp-03-07 # 3072 dimensions
       api_key: os.environ/GEMINI_API_KEY_2
 
-  - model_name: gemini-home
+  - model_name: gemini-pro
     litellm_params:
       api_key: os.environ/GEMINI_API_KEY_0
       model: gemini/gemini-2.5-pro
-      stream: false
+      reasoning_effort: "high"
 
   - model_name: gemini-flash
     litellm_params:
-      model: gemini/gemini-2.5-flash
       api_key: os.environ/GEMINI_API_KEY_1
-      cooldown: 5
-      tpm: 200000
+      model: gemini/gemini-2.5-flash
+
   - model_name: gemini-flash
     litellm_params:
-      model: gemini/gemini-2.5-flash
       api_key: os.environ/GEMINI_API_KEY_2
-      cooldown: 5
-      tpm: 200000
+      model: gemini/gemini-2.5-flash
 
   - model_name: gemini-pro
     litellm_params:
       api_key: os.environ/GEMINI_API_KEY_1
       model: gemini/gemini-2.5-pro
       reasoning_effort: "high"
-      cooldown: 5
-      tpm: 200000
-      stream: false
+
   - model_name: gemini-pro
     litellm_params:
       api_key: os.environ/GEMINI_API_KEY_2
       model: gemini/gemini-2.5-pro
       reasoning_effort: "high"
-      cooldown: 5
-      tpm: 200000
-      stream: false
 
 router_settings:
   fallbacks: [
-    {"gemini-pro": ["gemini-home", "gemini-flash"]},
-    {"gemini-home": ["gemini-flash"]}
+    {"gemini-pro":  ["gemini-flash"]}
   ]
-  timeout: 5
 
 general_settings:
   log_level: INFO
-  num_retries: 1
+  num_retries: 0
 
 litellm_settings:
   drop_params: true
